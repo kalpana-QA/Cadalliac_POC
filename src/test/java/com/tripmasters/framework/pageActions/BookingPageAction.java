@@ -25,6 +25,7 @@ import com.tripmasters.framework.reports.Logs;
 public class BookingPageAction extends PageBase {
 
 	ExtentTest test;
+	public static String  secondCityHotel;
 	
 	public BookingPageAction(WebDriver driver) {
 		super(driver);
@@ -870,9 +871,10 @@ public class BookingPageAction extends PageBase {
 		selectOptionByValue(BookingLocators.getselectGuestDrpdown_FirstPackage(), guestInfo);
 	}
 
-	public void clickOnViewPrice() {
-		clickUsingJavaScript(BookingLocators.getClickOnViewPriceButton());
-	}
+	//Web Method
+//	public void clickOnViewPrice() {
+//		clickUsingJavaScript(BookingLocators.getClickOnViewPriceButton());
+//	}
 
 	public void clickToRemoveSecondCityHotel() {
 		clickUsingJavaScript(BookingLocators.getClickToRemoveScndCityHotel());
@@ -979,4 +981,50 @@ public class BookingPageAction extends PageBase {
 	public void clickOnRemoveBtnThirdCity() {
 		clickUsingJavaScript(BookingLocators.getselectRemoveThirdCityBtn());
 	}
+	
+	public String exploreList() {
+		WebElement e = driver.findElement(By.xpath("(//p[@class='pMproduct']/a)[1]"));
+			String listname = e.getText();
+			System.out.println("list name is "+ listname);
+			return listname;
+	}
+	
+	public  void getexploreLink() throws Exception {
+		if (TestBase.flag_Mob)
+			PageBase.waitForElement(5);
+			clickUsingJavaScript(BookingLocators.getexploreLink());
+			scrollDownForMob(1);
+			PageBase.waitForElement(5);
+	}
+	
+	public void fillLeavingonExplorepage(String leavingFrom) throws Exception {
+		clearAndSetValues(BookingLocators.getLeavingTxtbox(), leavingFrom);
+		WebElement select = driver.findElement(By.xpath("(//span[@class='highlight boldText'])[1]"));
+		select.click();
+
+	}
+	
+	public void clickOnViewPrice() {
+		clickUsingJavaScript(BookingLocators.getViewPricebtn());
+	}
+	
+	public void removeSecondCityHotel() throws Exception {
+		if(TestBase.flag_Mob) {
+			scrollDownForMob(2);
+		}
+	    secondCityHotel = driver.findElement(BookingLocators.getsecondCityhotelName()).getText();
+		System.out.println("name of the hotel is "+ secondCityHotel);
+		clickUsingJavaScript(BookingLocators.getremoveSecondCityHotel());
+		clickUsingJavaScript(BookingLocators.getremoveSecondCityHotelYesBtn());
+		scrollDownForMob(2);
+		
+	}
+	
+	public void validateSecondCityHotel() {
+		boolean flag = true;
+	if(driver.getPageSource().contains(secondCityHotel)) {
+		 flag = false;
+		Assert.assertFalse(flag);
+	}
+   }
 }

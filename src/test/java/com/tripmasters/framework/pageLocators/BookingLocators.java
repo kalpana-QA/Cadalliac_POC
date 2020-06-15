@@ -219,11 +219,36 @@ public class BookingLocators {
 	public static By secondTravelerGenderDropdownMob = By.xpath("//select[@id='txtCPAX_Gender2']");
 	public static By secondTravelerDOBMob = By.xpath("//input[@id='txtCPAX_DOB2']");
 	public static By passportDrpdownSecondTravellerChildMob = By.xpath("//select[@id='txtCPAX_Nationality2']");
+	private static By exploreLink = By.xpath("(//p[@class='pMproduct']/a)[1]");
+	private static By viewPricebtn = By.xpath("//div[contains(text(),'View Price')]");
+	private static By secondCityhotelName = By.xpath("(//div[@class='col-12 pl-0']/a)[4] | ((//div[@class='col-10'])[3]//a)[1]");
+	private static By removeSecondCityHotel = By.xpath("(//div[@class='col-4']/a)[7] | (//div[@class='col-4']//a[contains(text(),Remove)])[3]");
+	private static By removeSecondCityHotelYesBtn = By.xpath("//button[@id='remYes']");
 	/**
 	 * @return the emailId
 	 */
+	
+    public static By getremoveSecondCityHotelYesBtn() {
+		
+		return removeSecondCityHotelYesBtn;
+	}
+
+	public static By getremoveSecondCityHotel() {
+		return removeSecondCityHotel;
+	}
 	public static By getfirstChildDropdowniOS() {
 		return firstChildDropdowniOS;
+	}
+    public static By getsecondCityhotelName() {
+		
+		return secondCityhotelName;
+	}
+	public static By getexploreLink() {
+		return exploreLink;
+	}
+    public static By getViewPricebtn() {
+		
+		return viewPricebtn;
 	}
 	
 	public static By getselectfirstRoomAdultPlus() {

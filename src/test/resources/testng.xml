@@ -9,8 +9,8 @@
 	<test name="Test">
 	<groups>
 	<run>
-		<include name="smoke"></include>
-<!-- 		<include name="testdemo"></include> -->
+<!-- 		<include name="smoke"></include> -->
+		<include name="testdemo"></include>
 	</run>
    </groups>
    
