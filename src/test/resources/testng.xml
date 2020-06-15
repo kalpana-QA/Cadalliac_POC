@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="methods">
+ <listeners>
+        <listener class-name="com.tripmasters.framework.Listeners.TestListener"/>
+        <listener class-name="com.tripmasters.framework.Listeners.AnnotationTransformer"/>
+    </listeners>
+    
+	<test name="Test">
+	<groups>
+	<run>
+		<include name="smoke"></include>
+<!-- 		<include name="testdemo"></include> -->
+	</run>
+   </groups>
+   
+<!-- <parameter name="browser" value="Chrome" /> -->
+		<classes>
+		<class name="com.tripmasters.framework.testScript.HomePageTestScript" /> 
+  		<class name="com.tripmasters.framework.testScript.BookingPageTestScript" /> 
+<!--  			<class name="com.tripmasters.framework.utils.GenerateReport2" />  -->
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
+
+
