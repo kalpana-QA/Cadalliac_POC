@@ -1,3 +1,4 @@
+
 package com.tripmasters.framework.base;
 
 import java.io.FileNotFoundException;
@@ -12,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -32,7 +34,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class TestBase {
 	private static String chromeDriverFilePath = System.getProperty("user.dir")
 			+ "/src/test/resources/webdriver/chromedriver.exe";
-	public  WebDriver driver;
+	//public static WebDriver driver;
 	private DesiredCapabilities capabilities;
 	private URL url;
 	private boolean flag = false;
@@ -40,16 +42,24 @@ public class TestBase {
 	public static WebDriverWait wait;
 	public static boolean flag_Mob;
 
+	public static final String USERNAME = "testcad1";
+	public static final String AUTOMATE_KEY = "yTQ6j7pLP1hsyBP8GjtT";
+   public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
+   
+	public static String username = "kalpana.kaushik";
+    public static String accesskey = "BTN7CDpX7oE0cBfCYeHmJUfmQeoeflGnT40WAWwElTDls2VxU0";
+    public static RemoteWebDriver driver = null;
+    public static String gridURL = "@hub.lambdatest.com/wd/hub";
+    
 	public BookingPageAction bookingPage;
 	public HomePageAction homePage;
 	public PassengerInfoPageAction passengerInfoPage;
 	public ExtentTest test;
 
 	
-	@BeforeMethod(alwaysRun=true)
+	@BeforeMethod(alwaysRun = true)
 	// @Parameters(value = { "browser" })
 	public void setUp() throws FileNotFoundException, IOException, ParseException {
-		// gn = new GenerateReport();
 		platform = JsonDataReader.getJSONData("Platform");
 		String browser = JsonDataReader.getJSONData("Browser");
 		try {
@@ -81,17 +91,33 @@ public class TestBase {
 			else if(platform.equalsIgnoreCase("Mobile")){
 				if (browser.equalsIgnoreCase("Chrome")) {
 					capabilities = new DesiredCapabilities();
-
+			/*BrowserStack capabilities	*/	
 					System.out.println("chromeDriverFilePath : " + chromeDriverFilePath);
-					capabilities.setCapability("chromedriverExecutable", chromeDriverFilePath);
+					capabilities.setCapability("browserName", "android");
+					capabilities.setCapability("device", "OnePlus 7");
+					capabilities.setCapability("realMobile", "true");
+					capabilities.setCapability("os_version", "9.0");
+					capabilities.setCapability("name", "Bstack-[Java] Sample Test");
+					driver =new RemoteWebDriver(new URL(URL), capabilities);
+	        /*Lambdatest capabilities			
+					capabilities.setCapability("name", "demo test");
 					capabilities.setCapability("platformName", "Android");
-					capabilities.setCapability("deviceName", "One Plus");
-					capabilities.setCapability("browserName", "Chrome");
+					capabilities.setCapability("deviceName", "One Plus 6T");
+					capabilities.setCapability("platformVersion","9");
+					driver =new RemoteWebDriver(new URL("https://" + username + ":" + accesskey + gridURL), capabilities);
+					*/
+				
+//					capabilities.setCapability("chromedriverExecutable", chromeDriverFilePath);
+//					capabilities.setCapability("platformName", "Android");
+//					capabilities.setCapability("deviceName", "One Plus");
+//					capabilities.setCapability("browserName", "Chrome");
+                   
+//              
+//					url = new URL("http:127.0.1.1:4723/wd/hub");
 
-					url = new URL("http:127.0.1.1:4723/wd/hub");
-
-					driver = new AndroidDriver<MobileElement>(url, capabilities);
-
+					//driver = new AndroidDriver<MobileElement>(url, capabilities);
+					
+					
 					//Logs.info(browser + " AndroidDriver instantiated for " + platform + " platform.");
 					flag = true;
 
@@ -105,14 +131,22 @@ public class TestBase {
 			{
 				if (browser.equalsIgnoreCase("Safari")) {
 					capabilities = new DesiredCapabilities();
-					capabilities.setCapability("deviceName", "iPhone 11 Pro Max");
-					capabilities.setCapability("platformName", "iOS");
-					capabilities.setCapability("platformVersion", "13.3");
-					capabilities.setCapability(CapabilityType.BROWSER_NAME, "Safari");
-					// IOSDriver
-					url = new URL("http://127.0.0.1:4723/wd/hub");
-					driver = new IOSDriver<IOSElement>(url, capabilities);
-					//DesiredCapabilities capabilities = new DesiredCapabilities();
+//					capabilities.setCapability("deviceName", "iPhone 11 Pro Max");
+//					capabilities.setCapability("platformName", "iOS");
+//					capabilities.setCapability("platformVersion", "13.3");
+//					capabilities.setCapability(CapabilityType.BROWSER_NAME, "Safari");
+//					url = new URL("http://127.0.0.1:4723/wd/hub");
+//					driver = new IOSDriver<IOSElement>(url, capabilities);
+	/*Lambdatest Capabilities				
+//					capabilities.setCapability("platformName", "iOS");
+//					capabilities.setCapability("deviceName", "iPhone 11");
+//					capabilities.setCapability("platformVersion","13.1");
+//					driver =new RemoteWebDriver(new URL("https://" + username + ":" + accesskey + gridURL), capabilities);
+ */
+					capabilities.setCapability("device", "iPhone 11 Pro");
+					capabilities.setCapability("os_version", "13");
+					capabilities.setCapability("name", "Bstack-[Java] Sample Test");
+                    driver =new RemoteWebDriver(new URL(URL), capabilities);
 					System.out.println("Safari browser launched on iOS");
 					flag = true;
 				} else {
@@ -148,13 +182,15 @@ public class TestBase {
 		passengerInfoPage = new PassengerInfoPageAction(driver);
 	}
 
-	//@AfterMethod(alwaysRun=true)
-	public void tearDown() throws FileNotFoundException, IOException, ParseException {
-		
+	@AfterMethod(alwaysRun = true)
+	public static void tearDown() {
+		// gn.extent.flush();
+		// driver.quit();
+		// GenerateReport2.startReport(null, null);
+		// GenerateReport2.getResult(null);
 		if (driver != null) {
 			//Logs.info("Closing browser after TestClass");
-		 driver.close();
-		
+		 driver.quit();
 		} else {
 			//Logs.error("Driver is null at AfterClass (TestBase)");
 		}
@@ -162,3 +198,4 @@ public class TestBase {
 	}
 
 }
+

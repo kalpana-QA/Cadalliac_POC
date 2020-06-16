@@ -455,3 +455,4 @@
 2020-06-15 15:26:32,597 - com.tripmasters.framework.reports.Logs -INFO - User filled all the passenger details successfully
 2020-06-15 15:26:54,590 - com.tripmasters.framework.reports.Logs -INFO - Flights & passenger details verified successfully on PaymentPage
 2020-06-15 15:27:09,697 - com.tripmasters.framework.reports.Logs -INFO - XXXXXXXXXXXXXXXXXXXXXXX           TC_0009_dateChanging    -E---N---D-             XXXXXXXXXXXXXXXXXXXXXX
+2020-06-16 12:21:14,742 - com.tripmasters.framework.reports.Logs -ERROR - Unable to select element by text

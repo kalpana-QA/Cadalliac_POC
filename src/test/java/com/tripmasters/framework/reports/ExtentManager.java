@@ -18,7 +18,7 @@ public class ExtentManager {
 	                extent = new ExtentReports(workingDir + "/target/ExtentReports/" + timeStamp + ".html", true);
 	                extent.addSystemInfo("User Name", "MySystem");
 	                extent.addSystemInfo("ProjectName", "TripMasters");
-	                extent.addSystemInfo("Environment", "Web");
+	                extent.addSystemInfo("Environment", "Android");
 	                extent.addSystemInfo("HostOrg", "ImpactQA");
 	           // }
 //	            else if (System.getProperty("os.name").toLowerCase().contains("mac")) {
